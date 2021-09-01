@@ -1,0 +1,49 @@
+html{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333333;
+    background-color: #ffffff;
+}
+
+.title{
+    margin-top: 3rem;
+}
+
+.espaciado{
+    margin: 4rem;
+}
+
+#enviar{
+    position: relative;
+    padding: 10px 20px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    min-width: 141px;
+    border: none;
+    background-color: #6bbc0d;
+    color: #fff;
+    border-radius: 5px;
+    top: 0;
+    border-bottom: 3px solid #508c0a;
+}
+
+#reset{
+    position: relative;
+    padding: 10px 20px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    min-width: 141px;
+    border: none;
+    background-color: #33ACFF;
+    color: #fff;
+    border-radius: 5px;
+    top: 0;
+    border-bottom: 3px solid #33E6FF;
+}
+
+hr{
+    visibility: hidden;
+    display: none;
+}
+

@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <!-- BOOTSTRAP CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- BOOTSTRAP JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{% static 'fonts\font-awesome\css/font-awesome.css' %}">
+
+    <!-- EXPORT PNG -->
+    <script src="{%  static 'js/canvas2image.min.js' %}"></script>
+    <script src="{% static 'js/html2canvas.0.4.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+
+
+
+    <title>Generador de firmas</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="title">
+                    <center>
+                        <h2>Firma para email</h2>
+                    </center>
+                </div>
+            </div>
+        </div>
+
+        <div class="espaciado"></div>
+
+        <form method="POST" onsubmit="return datos()">
+            {% csrf_token %}
+            <div class="row">
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label for="">Nombre completo:</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" placeholder="">
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label for="">Teléfono:</label>
+                        <input type="tel" class="form-control" name="telefono" id="telefono" placeholder="xx xxxx xxxx">
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label for="">Empresa</label>
+                        <select name="empresa" id="empresa" class="form-control">
+                            <option selected>Atleticos</option>
+                            <option>Timberlad</option>
+                            <option>Vans</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label for="">Cargo:</label>
+                        <input class="form-control" type="text" name="cargo" id="cargo">
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label for="">Correo Electrónico:</label>
+                        <input class="form-control" type="email" name="email" id="email">
+                    </div>
+                </div>
+            </div>
+            <input type="submit" id="reset" value="Enviar">
+        </form>
+
+        <div class="espaciado"></div>
+
+        <div class="row">
+            <button id="btnSave2" class="download-btn">Download jpg</button>
+        </div>
+
+        <br><br><br>
+        <!-- FIRMA PROCESADA -->
+
+        <div class="row">
+            <div id="mi-firma" >
+                <div class="form-group">
+                    <div  style="display: block;">
+                        <table border="0" style="width:430px;font-family:helvetica,sans-serif;font-size:14px;">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="4" style="width:150px;border-right:2px solid #666"><img
+                                            src="{%  static 'firma-logo-atleticos.png' %}" class="firma-img"
+                                            alt="desici_firma" width="130" height="130"
+                                            style="display:block;margin:0px auto">
+                                    </td>
+                                    <td style="display:block;padding:2px 10px;">
+                                        <strong style="font-size:20px;" id="nombreFirma">
+                                        </strong><br>
+                                        <span id="cargoFirma" style="color:rgb(167,169,172);font-size:13px"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="display:block;padding:2px 10px">
+                                        <a id="telefonoFirma"
+                                            style="text-decoration: none; color:#000;">&nbsp;&nbsp;</a>
+                                    </td>
+                                    <td style="display:block;padding:2px 10px">
+                                        <a id="emailFirma" style="text-decoration: none; color:#000;">&nbsp;&nbsp;</a>
+                                    </td>
+                                    <td style="display:block;padding:2px 10px">
+                                        <a href="http://www.atleticos.com"
+                                            style="text-decoration: none; color:#000;"></a> www.atleticos.com
+                                        </a>
+                                    </td>                            
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                        <img src="{% static 'pino.png' %}" width="12" height="15" style="color:rgb(65,64,66);font-size:medium;float:left" class="CToWUd"><p style="font-size:12px;color:rgb(0,148,68);margin:0px 10px;font-style:italic"> No imprimas si no es necesario. Protejamos el Medio Ambiente.<br><br><br></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <script>
+
+        function datos() {
+            var nombre = document.getElementById('nombre').value;
+            var telefono = document.getElementById('telefono').value;
+            var empresa = document.getElementById('empresa').value;
+            var cargo = document.getElementById('cargo').value;
+            var email = document.getElementById('email').value;
+
+            var datosForm = [
+                nombre,
+                telefono,
+                empresa,
+                cargo,
+                email
+            ]
+            write(datosForm);
+            return (false)
+        }
+
+        function write(val) {
+            document.getElementById('nombreFirma').innerHTML = val[0];
+            document.getElementById('telefonoFirma').innerHTML = val[1];
+            document.getElementById('cargoFirma').innerHTML = val[3];
+            document.getElementById('emailFirma').innerHTML = val[4];
+        }
+
+    </script>
+
+    <script>
+        document.getElementById('mi-firma').contentEditable = 'true'; document.getElementById('mi-firma').designMode = 'on';
+        $(function () {
+            $("#btnSave2").click(function () {
+                html2canvas($("#mi-firma"), {
+                    onrendered: function (canvas) {
+                        saveAs(canvas.toDataURL(), 'mi-firma.png');
+                    }
+                });
+            });
+            function saveAs(uri, filename) {
+                var link = document.createElement('a');
+                if (typeof link.download === 'string') {
+                    link.href = uri;
+                    link.download = filename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                } else {
+                    window.open(uri);
+                }
+            }
+        });
+
+        // Create a canvas with double-resolution.
+       // scale: 2,
+         //           onrendered: myRenderFunction,
+           //         dpi: 144,
+             //       onrendered: myRenderFunction,
+    </script>
+
+
+</body>
+
+</html>
