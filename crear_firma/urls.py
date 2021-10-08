@@ -5,5 +5,6 @@ from crear_firma import views
 
 urlpatterns = [
     path('', views.index, name='home'),
-    path('/firma', views.crear_firma, name='firma')
+ #   path('firma/', views.crear_firma, name='firma'),
+    path('firma-thunderbird/', views.crear_firma, name='firma-thunder')
 ]

@@ -22,7 +22,8 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="{% static 'fonts\font-awesome\css/font-awesome.css' %}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
     <!-- EXPORT PNG -->
     <script src="{%  static 'js/canvas2image.min.js' %}"></script>
@@ -35,6 +36,9 @@
 </head>
 
 <body>
+
+    {% include 'nav.html' %}
+
     <div class="container">
 
         <div class="row">
@@ -42,6 +46,7 @@
                 <div class="title">
                     <center>
                         <h2>Firma para email</h2>
+                        <h3>Thunderbird</h3>
                     </center>
                 </div>
             </div>
@@ -95,20 +100,22 @@
                     </div>
                 </div>
             </div>
-            <input type="submit" id="reset" value="Enviar">
+            <input type="submit" onclick="mostrar();" id="reset" value="Enviar">
         </form>
 
         <div class="espaciado"></div>
 
-        <div class="row">
-            <button id="btnSave2" class="download-btn">Download jpg</button>
-        </div>
-
         <br><br><br>
         <!-- FIRMA PROCESADA -->
 
-        <div class="row">
-            <div id="mi-firma" >
+        <div class="row" id='firmaContenido' hidden>
+            <div class="col-6">
+                <div class="row">
+                    <button id="btnSave2" class="download-btn btn btn-success">Download jpg</button>
+                </div>
+                <br>
+            </div>
+            <div id="mi-firma" class="col-8" >
                 <div class="form-group">
                     <div  style="display: block;">
                         <table border="0" style="width:430px;font-family:helvetica,sans-serif;font-size:14px;">
@@ -120,9 +127,9 @@
                                             style="display:block;margin:0px auto">
                                     </td>
                                     <td style="display:block;padding:2px 10px;">
-                                        <strong style="font-size:20px;" id="nombreFirma">
+                                        <strong style="font-size:14px;" id="nombreFirma">
                                         </strong><br>
-                                        <span id="cargoFirma" style="color:rgb(167,169,172);font-size:13px"></span>
+                                        <strong><span id="cargoFirma" style="color:rgb(89, 90, 90);font-size:13px"></span></strong>
                                     </td>
                                 </tr>
                                 <tr>
@@ -142,7 +149,25 @@
                             </tbody>
                         </table>
                         <br>
-                        <img src="{% static 'pino.png' %}" width="12" height="15" style="color:rgb(65,64,66);font-size:medium;float:left" class="CToWUd"><p style="font-size:12px;color:rgb(0,148,68);margin:0px 10px;font-style:italic"> No imprimas si no es necesario. Protejamos el Medio Ambiente.<br><br><br></p>
+                        <div class="col-12">
+                            <strong>
+                                <p style="font-size:10px;color:rgb(117, 117, 117)"><br>Este correo electrónico es
+                                    confidencial y/o puede contener información privilegiada. Si usted no es su
+                                    destinatario o no es alguna persona autorizada por este para recibir sus correos
+                                    electrónicos, NO deberá usted utilizar, copiar, revelar, o tomar ninguna acción
+                                    basada en este correo electrónico o cualquier otra información incluida en el, favor
+                                    de notificar al remitente de inmediato mediante el reenvío de este correo
+                                    electrónico y borrar a continuación totalmente este correo electrónico y sus anexos.
+                                    Nota: Los acentos y caracteres especiales fueron omitidos para su correcta lectura
+                                    en cualquier medio electrónico.</p>
+                            </strong>
+                        </div>
+                        <div class="col-12">
+                            <img src="{% static 'pino.png' %}" width="12" height="15"
+                                style="color:rgb(65,64,66);font-size:medium;float:left" class="CToWUd">
+                            <p style="font-size:10px;color:rgb(0,148,68);margin:0px 10px;font-style:italic"> No imprimas
+                                si no es necesario. Protejamos el Medio Ambiente.<br><br><br></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -186,8 +211,12 @@
         $(function () {
             $("#btnSave2").click(function () {
                 html2canvas($("#mi-firma"), {
+                    width: 2000,
+                    height: 2000,
+
+                    imageTimeout: 1550,
                     onrendered: function (canvas) {
-                        saveAs(canvas.toDataURL(), 'mi-firma.png');
+                        saveAs(canvas.toDataURL(), 'mi-firma-thunderbird.png', 1.0);
                     }
                 });
             });
@@ -204,14 +233,13 @@
                 }
             }
         });
-
-        // Create a canvas with double-resolution.
-       // scale: 2,
-         //           onrendered: myRenderFunction,
-           //         dpi: 144,
-             //       onrendered: myRenderFunction,
     </script>
 
+    <script>
+        function mostrar(){
+            $('#firmaContenido').removeAttr('hidden');
+        }
+    </script>
 
 </body>
 

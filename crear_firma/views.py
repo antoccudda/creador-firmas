@@ -4,7 +4,7 @@ from django.shortcuts import render
 # Create your views here.
 
 def index(requets):
-    return render(requets, 'index.html')
+    return render(requets, 'outlook.html')
 
 def crear_firma(request):
-    pass
+    return render(request, 'thunder.html')
