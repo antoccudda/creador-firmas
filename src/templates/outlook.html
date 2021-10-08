@@ -30,8 +30,6 @@
     <script src="{% static 'js/html2canvas.0.4.1.min.js' %}"></script>
     <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
 
-
-
     <title>Generador de firmas</title>
 </head>
 
@@ -115,7 +113,7 @@
                 </div>
                 <br>
             </div>
-            <div id="mi-firma" class="col-8 m-2" >
+            <div id="mi-firma"  class="col-8 m-2">
                 <div class="form-group">
                     <div style="display: block;">
                         <table border="0" style="width:430px;font-family:helvetica,sans-serif;font-size:16px;">
@@ -129,8 +127,8 @@
                                     <td style="display:block;padding:2px 13px;">
                                         <strong style="font-size:20px;" id="nombreFirma">
                                         </strong><br>
-                                        <strong><span id="cargoFirma"
-                                                style="color:rgb(89, 90, 90);font-size:14px"></span></strong>
+                                        <span id="cargoFirma"
+                                                style="color:rgb(0, 0, 0);font-size:14px"></span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -154,8 +152,8 @@
                         </table>
                         <br>
                         <div class="col-12">
-                            <strong>
-                                <p style="font-size:14px;color:rgb(117, 117, 117)"><br>Este correo electrónico es
+                            
+                                <p style="font-size:14px;color:#303030; font-style: arial;"><br>Este correo electrónico es
                                     confidencial y/o puede contener información privilegiada. Si usted no es su
                                     destinatario o no es alguna persona autorizada por este para recibir sus correos
                                     electrónicos, NO deberá usted utilizar, copiar, revelar, o tomar ninguna acción
@@ -164,12 +162,12 @@
                                     electrónico y borrar a continuación totalmente este correo electrónico y sus anexos.
                                     Nota: Los acentos y caracteres especiales fueron omitidos para su correcta lectura
                                     en cualquier medio electrónico.</p>
-                            </strong>
+                            
                         </div>
                         <div class="col-12">
                             <img src="{% static 'pino.png' %}" width="12" height="15"
                                 style="color:rgb(65,64,66);font-size:medium;float:left" class="CToWUd">
-                            <p style="font-size:12px;color:rgb(0,148,68);margin:0px 10px;font-style:italic"> No imprimas
+                            <p style="font-size:14px;color:rgb(1, 128, 60);margin:0px 10px;font-style:arial"> No imprimas
                                 si no es necesario. Protejamos el Medio Ambiente.<br><br><br></p>
                         </div>
                     </div>
@@ -215,9 +213,6 @@
         $(function () {
             $("#btnSave2").click(function () {
                 html2canvas($("#mi-firma"), {
-                    width: 2000,
-                    height: 2000,
-
                     imageTimeout: 1550,
                     onrendered: function (canvas) {
                         saveAs(canvas.toDataURL(), 'mi-firma-outlook.png', 1.0);
@@ -240,7 +235,7 @@
     </script>
 
     <script>
-        function mostrar(){
+        function mostrar() {
             $('#firmaContenido').removeAttr('hidden');
         }
     </script>
